@@ -41,4 +41,3 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys  D1742AD60
 RUN apt-get update &&  apt-get install spotify-client -y
 
 COPY start_vpn.sh /usr/bin
-CMD /usr/bin/start_vpn.sh
