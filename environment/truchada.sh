@@ -1,16 +1,18 @@
 #!/bin/bash
-CONTAINERS=2
-xhost local:root
+I=1
+TECHNOLOGY=NordLynx
 
 start() {
-    for i in $(seq 1 ${CONTAINERS});do SPOTIFY_INDEX=$i docker-compose -p environment_$i up --force-recreate --build -d spotify ;done
+xhost local:root
+export SPOTIFY_INDEX=$I
+export PROTOCOL=$TECHNOLOGY
+docker-compose -p environment_${I} up --force-recreate --build -d spotify
 }
 
 stop() {
-    for i in $(seq 1 ${CONTAINERS});do 
-    docker exec -it environment${i}_spotify_1 nordvpn disconnect
-    docker stop environment${i}_spotify_1
-    docker rm environment${i}_spotify_1 ;done
+    docker exec -it environment${I}_spotify_1 nordvpn disconnect
+    docker stop environment${I}_spotify_1
+    docker rm environment${I}_spotify_1
 }
 
 case "$1" in

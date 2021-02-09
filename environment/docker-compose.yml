@@ -6,6 +6,8 @@ services:
     build:
       context: ./
       dockerfile: spotify-vpn.dockerfile
+      args:
+        PROTOCOL_TECH: ${PROTOCOL}
     command: /usr/bin/start_vpn.sh
     hostname: DESKTOP-ASH34H${SPOTIFY_INDEX}
     volumes: 

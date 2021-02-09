@@ -2,6 +2,7 @@ FROM ubuntu:18.04
 
 LABEL maintainer="Julio Gutierrez"
 ARG NORDVPN_VERSION=3.7.4
+ARG PROTOCOL_TECH
 
 HEALTHCHECK --interval=5m --timeout=20s --start-period=1m \
 	CMD if test $( curl -m 10 -s https://api.nordvpn.com/vpn/check/full | jq -r '.["status"]' ) = "Protected" ; then exit 0; else nordvpn connect ${CONNECT} ; exit $?; fi
@@ -10,8 +11,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV USER=perreguido@gmail.com
 ENV PASS=guidosimon123
 ENV CONNECT=Argentina
-ENV TECHNOLOGY=NordLynx
+ENV TECHNOLOGY=${PROTOCOL_TECH}
 ENV DISPLAY=:0
+
+RUN echo ${CONNECT}
 
 RUN addgroup --system vpn && \
 	apt-get update -yqq && \
