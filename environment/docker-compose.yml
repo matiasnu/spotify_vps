@@ -17,3 +17,5 @@ services:
       - "/dev/net/tun:/dev/net/tun"
     sysctls:
       - net.ipv4.conf.all.rp_filter=2
+    healthcheck:
+      disable: true
