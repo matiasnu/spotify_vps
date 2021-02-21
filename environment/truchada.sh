@@ -1,9 +1,11 @@
 #!/bin/bash
 CONTAINERS=2
 xhost local:root
+GROUPADD=$(getent group audio | cut -d: -f3)
 
 start() {
-    for i in $(seq 1 ${CONTAINERS});do SPOTIFY_INDEX=$i docker-compose -p environment_$i up --force-recreate --build -d spotify ;done
+    docker stack deploy -c docker-compose.yml spotify_service
+    for i in $(seq 1 ${CONTAINERS});do SPOTIFY_INDEX=$i USERID=$(id -u) docker-compose -p environment_$i up --force-recreate --build -d spotify ;done
 }
 
 stop() {
@@ -11,6 +13,7 @@ stop() {
     docker exec -it environment${i}_spotify_1 nordvpn disconnect
     docker stop environment${i}_spotify_1
     docker rm environment${i}_spotify_1 ;done
+    docker stack down spotify_service
 }
 
 case "$1" in

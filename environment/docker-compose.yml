@@ -1,8 +1,10 @@
-version: '2.1'
+version: '3.1'
 
 services:
   spotify:
-    privileged: true 
+    tty: true
+    privileged: true
+    image: ubuntu
     build:
       context: ./
       dockerfile: spotify-vpn.dockerfile
@@ -10,10 +12,15 @@ services:
     hostname: DESKTOP-ASH34H${SPOTIFY_INDEX}
     volumes: 
       - /tmp/.X11-unix:/tmp/.X11-unix
+      - /run/user/${USERID}/pulse/native:/var/run/pulseaudio.sock
+      - ~/.config/pulse/cookie:/run/pulse/cookie
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
     devices: 
       - "/dev/net/tun:/dev/net/tun"
+      - "/dev/ttyUSB0:/dev/ttyUSB0"
     sysctls:
       - net.ipv4.conf.all.rp_filter=2
+    healthcheck:
+      disable: true

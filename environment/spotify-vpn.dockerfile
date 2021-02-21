@@ -12,6 +12,8 @@ ENV PASS=guidosimon123
 ENV CONNECT=Argentina
 ENV TECHNOLOGY=NordLynx
 ENV DISPLAY=:0
+ENV PULSE_SERVER=unix:/var/run/pulseaudio.sock
+ENV PULSE_COOKIE=/run/pulse/cookie
 
 RUN addgroup --system vpn && \
 	apt-get update -yqq && \
@@ -25,6 +27,7 @@ RUN addgroup --system vpn && \
     apt-get autoclean -yqq && \
     apt-get install curl wget gnupg -yqq &&\
     apt-get install libcanberra-gtk-module libcanberra-gtk3-module -yqq &&\
+    apt install pulseaudio libpulse0 libasound2-plugins -yqq &&\
     rm -rf \
 		/tmp/* \
 		/var/cache/apt/archives/* \
