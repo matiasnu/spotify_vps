@@ -1,5 +1,5 @@
 #!/bin/bash
-CONTAINERS=2
+CONTAINERS=6
 xhost local:root
 GROUPADD=$(getent group audio | cut -d: -f3)
 
@@ -11,8 +11,8 @@ start() {
 stop() {
     for i in $(seq 1 ${CONTAINERS});do 
     docker exec -it environment${i}_spotify_1 nordvpn disconnect
-    docker stop environment${i}_spotify_1
-    docker rm environment${i}_spotify_1 ;done
+    docker stop environment_${i}_spotify_1
+    docker rm environment_${i}_spotify_1 ;done
     docker stack down spotify_service
 }
 
