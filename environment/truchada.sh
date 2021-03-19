@@ -5,15 +5,20 @@ GROUPADD=$(getent group audio | cut -d: -f3)
 
 start() {
     docker stack deploy -c docker-compose.yml spotify_service
-    for i in $(seq 1 ${CONTAINERS});do SPOTIFY_INDEX=$i USERID=$(id -u) docker-compose -p environment_$i up --force-recreate --build -d spotify ;done
+    for i in $(seq 1 ${CONTAINERS});do SPOTIFY_INDEX=$(generate_hostname) USERID=$(id -u) docker-compose -p environment_$i up --force-recreate --build -d spotify ;done
 }
 
 stop() {
     for i in $(seq 1 ${CONTAINERS});do 
-    docker exec -it environment${i}_spotify_1 nordvpn disconnect
+    docker exec -it environment_${i}_spotify_1 nordvpn disconnect
     docker stop environment_${i}_spotify_1
     docker rm environment_${i}_spotify_1 ;done
     docker stack down spotify_service
+}
+
+generate_hostname() {
+    result=$(tr -dc A-Z0-9_ < /dev/urandom | head -c 7 | xargs)
+    echo "$result"
 }
 
 case "$1" in

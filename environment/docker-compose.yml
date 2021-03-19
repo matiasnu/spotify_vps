@@ -9,7 +9,7 @@ services:
       context: ./
       dockerfile: spotify-vpn.dockerfile
     command: /usr/bin/spotify
-    hostname: DESKTOP-ASH34H${SPOTIFY_INDEX}
+    hostname: DESKTOP-${SPOTIFY_INDEX}
     volumes: 
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /run/user/${USERID}/pulse/native:/var/run/pulseaudio.sock
