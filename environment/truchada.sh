@@ -1,5 +1,5 @@
 #!/bin/bash
-CONTAINERS=6
+CONTAINERS=18
 xhost local:root
 GROUPADD=$(getent group audio | cut -d: -f3)
 
