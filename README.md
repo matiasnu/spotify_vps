@@ -1,4 +1,4 @@
-# Spotify vpn
+# Spotify vps
 ## Spotify vpn service para iniciar n dockers con el servicio
 
 ### Como iniciar el servicio
