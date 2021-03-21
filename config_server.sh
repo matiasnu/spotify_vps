@@ -11,6 +11,7 @@ golang_install() {
     curl -O https://dl.google.com/go/go1.12.1.linux-amd64.tar.gz
     tar -xvf go1.12.1.linux-amd64.tar.gz -C /usr/local 
     chown -R root:root /usr/local/go
+    rm -Rf /root/go1.12.1.linux-amd64.tar.gz
     mkdir -p $HOME/go/{bin,src}
     echo -e "export GOPATH=$HOME/go\nexport PATH=$PATH:$GOPATH/bin\nexport PATH=$PATH:$GOPATH/bin:/usr/local/go/bin" >> ~/.profile
     . ~/.profile
@@ -58,6 +59,7 @@ grafic_install() {
 basic_install() {
     apt install curl -y
     apt install git -y
+    apt-get install build-essential -y
 }
 
 # Run vps prepare

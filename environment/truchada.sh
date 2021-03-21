@@ -10,14 +10,13 @@ start() {
 
 stop() {
     for i in $(seq 1 ${CONTAINERS});do 
-    docker exec -it environment_${i}_spotify_1 nordvpn disconnect
     docker stop environment_${i}_spotify_1
     docker rm environment_${i}_spotify_1 ;done
     docker stack down spotify_service
 }
 
 generate_hostname() {
-    result=$(tr -dc A-Z0-9_ < /dev/urandom | head -c 7 | xargs)
+    result=$(tr -dc A-Z0-9 < /dev/urandom | head -c 7 | xargs)
     echo "$result"
 }
 
