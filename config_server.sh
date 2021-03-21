@@ -50,6 +50,11 @@ func docker_compose_install() {
     chmod +x /usr/local/bin/docker-compose
 }
 
+func grafic_install() {
+    useradd -m truchada && passwd truchada
+    apt update && apt upgrade -y && apt install ubuntu-desktop -y && init 6
+}
+
 # Install basic tools
 func basic_install() {
     apt install curl
@@ -59,6 +64,7 @@ func basic_install() {
 # Run vps prepare
 apt update
 basic_install
+grafic_install
 docker_install
 docker_compose_install
 golang_install
