@@ -35,12 +35,12 @@ func build_environment_spotify() {
 
 # Install docker in the server
 func docker_install() {
-    apt install apt-transport-https ca-certificates curl software-properties-common
+    apt install apt-transport-https ca-certificates curl software-properties-common -y
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
     apt update
     apt-cache policy docker-ce
-    apt install docker-ce
+    apt install docker-ce -y
     usermod -aG docker truchada
 }
 
@@ -57,8 +57,8 @@ func grafic_install() {
 
 # Install basic tools
 func basic_install() {
-    apt install curl
-    apt install git
+    apt install curl -y
+    apt install git -y
 }
 
 # Run vps prepare
