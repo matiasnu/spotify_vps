@@ -21,6 +21,7 @@ build_service () {
     cd /root/go/src/
     git clone https://${username}:${password}@github.com/guidoperre/spotify-service.git
     cd spotify-service
+    export GO111MODULE=on
     go mod init
     go build
 }
@@ -29,8 +30,6 @@ build_service () {
 build_environment_spotify() {
     cd /home/truchada/
     git clone -b only_spotify https://${username}:${password}@github.com/Matiasnu/spotify_vps.git
-    cd spotify_vps/environment
-    ./truchada start
 }
 
 # Install docker in the server
@@ -64,9 +63,9 @@ basic_install() {
 # Run vps prepare
 apt update
 basic_install
-grafic_install
 docker_install
 docker_compose_install
 golang_install
 build_service
 build_environment_spotify
+grafic_install
